@@ -1,0 +1,42 @@
+apiVersion: mq.ibm.com/v1beta1
+kind: QueueManager
+metadata:
+  annotations:
+    com.ibm.mq/write-defaults-spec: 'false'
+  resourceVersion: '35762238'
+  name: mq-qmgr
+  namespace: cp4i-dev
+  labels:
+    env: development
+spec:
+  license:
+    accept: true
+    license: L-RJON-CJR2RX
+    use: NonProduction
+  queueManager:
+    availability:
+      type: NativeHA
+    name: ACE12DQ01
+    resources:
+      limits:
+        cpu: 500m
+      requests:
+        cpu: 500m
+    storage:
+      defaultClass: gp3
+      persistedData:
+        class: gp3
+        enabled: true
+      queueManager:
+        class: gp3
+        type: persistent-claim
+  template:
+    pod:
+      containers:
+        - env:
+            - name: MQSNOAUT
+              value: 'yes'
+          name: qmgr
+  version: 9.3.2.1-r2
+  web:
+    enabled: true
