@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policies>
+  <policy policyType="MQEndpoint" policyName="DEMO_QMGR" policyTemplate="MQEndpoint">
+    <connection>CLIENT</connection>
+    <destinationQueueManagerName>DEMO_QMGR</destinationQueueManagerName>
+    <queueManagerHostname>demo-qmgr-76db.qm.eu-gb.mq.appdomain.cloud</queueManagerHostname>
+    <listenerPortNumber>30837</listenerPortNumber>
+    <channelName>CLOUD.ADMIN.SVRCONN</channelName>
+    <CCDTUrl></CCDTUrl>
+    <securityIdentity>demo-qmgr-dsn</securityIdentity>
+    <useSSL>true</useSSL>
+    <SSLPeerName></SSLPeerName>
+    <SSLCipherSpec></SSLCipherSpec>
+    <SSLCertificateLabel></SSLCertificateLabel>
+    <MQApplName></MQApplName>
+    <reconnectOption>default</reconnectOption>
+  </policy>
+</policies>
