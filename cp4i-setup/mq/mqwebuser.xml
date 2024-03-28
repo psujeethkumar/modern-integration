@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+    <featureManager>
+        <feature>appSecurity-2.0</feature>
+        <feature>basicAuthenticationMQ-1.0</feature>
+    </featureManager>
+
+    <enterpriseApplication id="com.ibm.mq.console">
+        <application-bnd>
+            <security-role name="MQWebAdmin">
+                <group name="MQWebAdminGroup" realm="defaultRealm"/>
+            </security-role>
+            <security-role name="MQWebAdminRO">
+                <user name="mqreader" realm="defaultRealm"/>
+            </security-role>
+            <security-role name="MQWebUser">
+                <special-subject type="ALL_AUTHENTICATED_USERS"/>
+            </security-role>
+            <security-role name="MFTWebAdmin">
+                <user name="mftadmin" realm="defaultRealm"/>
+            </security-role>
+            <security-role name="MFTWebAdminRO">
+                <user name="mftreader" realm="defaultRealm"/>
+            </security-role>			
+        </application-bnd>
+    </enterpriseApplication>
+
+    
+    <enterpriseApplication id="com.ibm.mq.rest">
+        <application-bnd>
+            <security-role name="MQWebAdmin">
+                <group name="MQWebAdminGroup" realm="defaultRealm"/>
+            </security-role>
+            <security-role name="MQWebAdminRO">
+                <user name="mqreader" realm="defaultRealm"/>
+            </security-role>
+            <security-role name="MQWebUser">
+                <special-subject type="ALL_AUTHENTICATED_USERS"/>
+            </security-role>
+            <security-role name="MFTWebAdmin">
+                <user name="mftadmin" realm="defaultRealm"/>
+            </security-role>
+            <security-role name="MFTWebAdminRO">
+                <user name="mftreader" realm="defaultRealm"/>
+            </security-role>			
+        </application-bnd>
+    </enterpriseApplication>
+
+    <!-- 
+    Sample Basic Registry 
+    -->
+    <basicRegistry id="basic" realm="defaultRealm">
+        <!-- 
+        This sample defines two users with unencoded passwords
+        and a group, these are used by the role mappings above.
+        -->
+        <user name="mqadmin" password="mqadmin"/>
+        <user name="mqreader" password="mqreader"/>
+        <user name="mftadmin" password="mftadmin"/>
+        <user name="mftreader" password="mftreader"/>		
+        <group name="MQWebAdminGroup">
+           <member name="mqadmin"/>
+        </group>
+    </basicRegistry>
+    
+           
+    <sslDefault sslRef="mqDefaultSSLConfig"/>
+  
+</server>

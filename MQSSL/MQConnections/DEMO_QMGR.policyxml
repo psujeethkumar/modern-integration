@@ -10,7 +10,7 @@
     <securityIdentity>demo-qmgr-dsn</securityIdentity>
     <useSSL>true</useSSL>
     <SSLPeerName></SSLPeerName>
-    <SSLCipherSpec></SSLCipherSpec>
+    <SSLCipherSpec>ANY_TLS12_OR_HIGHER</SSLCipherSpec>
     <SSLCertificateLabel></SSLCertificateLabel>
     <MQApplName></MQApplName>
     <reconnectOption>default</reconnectOption>
