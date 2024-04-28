@@ -1,0 +1,33 @@
+apiVersion: appconnect.ibm.com/v1beta1
+kind: IntegrationServer
+metadata:
+  name: legal-entity-registry
+  namespace: ibm-ace
+spec:
+  adminServerSecure: false
+  barURL: 
+    https://github.com/psujeethkumar/AWSCloud/raw/master/IBM%20App%20Connect/Bar%20Examples/LegalEntityRegistry/LegalEntityRegistry.bar
+  configurations:
+    - github-barauth
+  designerFlowsOperationMode: disabled
+  enableMetrics : false
+  license:
+    accept: true
+    license: L-KSBM-CCBK39
+    use: AppConnectEnterpriseNonProduction
+  pod:
+    containers:
+      runtime:
+        resources:
+          limits:
+            cpu: 300m
+            memory: 350Mi
+          requests:
+            cpu: 300m
+            memory: 300Mi
+  replicas: 1
+  router:
+    timeout: 120s
+  service:
+    endpointType: https
+  version: 12.0.3.0-r2

@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webhook-ingress
+  namespace: ibm-ace
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-3:594282304361:certificate/f5c2e232-d5ad-4aec-8ceb-90bfd1b5f5ef
+    alb.ingress.kubernetes.io/backend-protocol: HTTPS
+    alb.ingress.kubernetes.io/group.name: appconn-target
+spec:
+  ingressClassName: alb
+  rules:
+    - host: webhook.cloudaise.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ibm-appconnect-webhook-service
+                port:
+                  number: 443
+
+                  

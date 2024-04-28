@@ -1,0 +1,30 @@
+apiVersion: appconnect.ibm.com/v1beta1
+kind: DesignerAuthoring
+metadata:
+  name: appconn-designer
+  namespace: ibm-ace
+spec:
+  license:
+    accept: true
+    license: L-KSBM-CCBK39
+    use: AppConnectEnterpriseNonProduction
+  couchdb:
+    storage:
+      size: 10Gi
+      type: persistent-claim
+      class: appconn-elb
+    replicas: 1
+  designerMappingAssist:
+    enabled: true
+    incrementalLearning:
+      schedule: Every 15 days
+      storage:
+        bucket: esb-poc-bar-bucket
+        host: esb-poc-bar-bucket.s3.eu-west-3.amazonaws.com
+        s3Configuration: s3-config 
+        type: s3
+      useIncrementalLearning: true
+  useCommonServices: false
+  designerFlowsOperationMode: local
+  version: 12.0.3.0-r2
+  replicas: 3

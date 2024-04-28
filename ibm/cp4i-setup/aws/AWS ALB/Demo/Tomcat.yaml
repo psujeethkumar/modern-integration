@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-service-xfusion
+  namespace: tomcat-namespace-xfusion
+spec:
+  type: ClusterIP
+  selector:
+    app: tomcat
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+---
+apiVersion: apps/v1                          
+kind: Deployment
+metadata:
+  name: tomcat-deployment-xfusion
+  namespace: tomcat-namespace-xfusion
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      containers:
+        - name: tomcat-container-xfusion
+          image: tomcat
+          ports:
+            - containerPort: 8080

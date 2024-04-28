@@ -1,0 +1,9 @@
+apiVersion: appconnect.ibm.com/v1beta1
+kind: Configuration
+metadata:
+  name: s3-config
+  namespace: ibm-ace
+spec:
+  type: s3credentials
+  secretName: s3-credentials
+  description: ''

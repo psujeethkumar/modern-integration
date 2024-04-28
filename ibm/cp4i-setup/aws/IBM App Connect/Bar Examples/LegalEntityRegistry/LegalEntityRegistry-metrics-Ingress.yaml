@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: legal-entity-registry-metrics-ingress
+  namespace: ibm-ace
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: appconn-target
+    alb.ingress.kubernetes.io/backend-protocol: HTTPS    
+spec:
+  ingressClassName: alb
+  rules:
+    - host: ler-metrics.cloudaise.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: legal-entity-registry-metrics
+                port:
+                  number: 9483
