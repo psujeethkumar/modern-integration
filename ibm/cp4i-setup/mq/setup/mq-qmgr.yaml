@@ -1,35 +1,41 @@
 apiVersion: mq.ibm.com/v1beta1
 kind: QueueManager
-metadata:
-  annotations:
-    com.ibm.mq/write-defaults-spec: 'false'
-  resourceVersion: '35762238'
-  name: mq-qmgr
-  namespace: cp4i-dev
+metadata:    
+  name: mq-qmgr  
+  namespace: cp4i-acc
   labels:
-    env: development
+    env: acc
 spec:
   license:
     accept: true
-    license: L-RJON-CJR2RX
-    use: NonProduction
-  queueManager:
-    availability:
-      type: NativeHA
-    name: ACE12DQ01
-    resources:
-      limits:
-        cpu: 500m
-      requests:
-        cpu: 500m
-    storage:
-      defaultClass: gp3
-      persistedData:
-        class: gp3
-        enabled: true
-      queueManager:
-        class: gp3
-        type: persistent-claim
+    license: L-AXAF-JLZ53A
+    metric: ProcessorValueUnit
+    use: Development
+  tracing:
+    agent: {}
+    collector: {}
+    enabled: false
+    namespace: ''
+  terminationGracePeriodSeconds: 30
+  securityContext:
+    initVolumeAsRoot: false
+    readOnlyRootFilesystem: false
+  web:
+    console:
+      authentication:
+        provider: manual
+      authorization:
+        provider: manual
+    enabled: true
+    manualConfig:
+      secret:
+        name: mqwebuser
+  version: 9.3.4.1-r1
+  telemetry:
+    tracing:
+      instana:
+        enabled: false
+        protocol: http
   template:
     pod:
       containers:
@@ -37,6 +43,61 @@ spec:
             - name: MQSNOAUT
               value: 'yes'
           name: qmgr
-  version: 9.3.2.1-r2
-  web:
-    enabled: true
+          resources: {}
+  queueManager:
+    metrics:
+      enabled: true
+    resources:
+      limits:
+        cpu: '1'
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 1Gi
+    readinessProbe:
+      failureThreshold: 1
+      initialDelaySeconds: 0
+      periodSeconds: 5
+      successThreshold: 1
+      timeoutSeconds: 3
+    route:
+      enabled: true
+    name: ACE12AQ01
+    livenessProbe:
+      failureThreshold: 1
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    imagePullPolicy: IfNotPresent
+    debug: false
+    startupProbe:
+      failureThreshold: 24
+      initialDelaySeconds: 0
+      periodSeconds: 5
+      successThreshold: 1
+      timeoutSeconds: 5
+    mqsc:
+      - configMap:
+          items:
+            - ace12aq01
+          name: ace12aq01-mqsc
+    logFormat: Basic
+    availability:
+      type: NativeHA
+      updateStrategy: RollingUpdate
+    storage:
+      defaultClass: gp3
+      persistedData:
+        class: gp3
+        enabled: true
+        size: 2Gi
+        type: persistent-claim
+      queueManager:
+        class: gp3
+        size: 2Gi
+        type: persistent-claim
+      recoveryLogs:
+        enabled: false
+      scratch: {}
+      tmp: {}
