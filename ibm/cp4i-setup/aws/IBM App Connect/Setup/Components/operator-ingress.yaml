@@ -6,7 +6,7 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-3:594282304361:certificate/f5c2e232-d5ad-4aec-8ceb-90bfd1b5f5ef
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-3::certificate/f5c2e232-d5ad-4aec-8ceb-90bfd1b5f5ef
     alb.ingress.kubernetes.io/backend-protocol: HTTPS
     alb.ingress.kubernetes.io/group.name: appconn-target
 spec:
